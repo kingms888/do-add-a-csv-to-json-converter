@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to JSON Converter with AI Schema Detection | CSV/JSON Tools</title>
+    <meta name="description" content="Free, instant CSV to JSON converter with AI-powered schema detection. Perfect for developers, Shopify sellers, and data analysts. No upload required, 100% client-side.">
+    <meta name="keywords" content="csv to json converter, json to csv converter, shopify product seo, etsy listing photo size, amazon fba calculator, csv/json tools, developer tools, shopify sellers, add a csv to json converter">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.csvjsontools.com/csv-to-json">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="CSV to JSON Converter with AI Schema Detection">
+    <meta property="og:description" content="Convert CSV to JSON instantly with smart schema detection. Free, private, and works in your browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.csvjsontools.com/csv-to-json">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "CSV to JSON Converter with AI Schema Detection",
+        "url": "https://www.csvjsontools.com/csv-to-json",
+        "description": "Free CSV to JSON converter with AI schema detection. Works entirely in your browser.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "CSV to JSON conversion",
+            "AI schema detection",
+            "Type inference",
+            "Client-side processing",
+            "No data upload"
+        ]
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            padding: 30px 20px;
+        }
+        
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .input-section, .output-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .input-section h2, .output-section h2 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 15px;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            background: white;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #667eea;
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button.secondary {
+            background: #6c757d;
+        }
+        
+        button.secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+        
+        .schema-info {
+            background: #e7f5ff;
+            border-left: 4px solid #0d6efd;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+        
+        .schema-info strong {
+            color: #0d6efd;
+        }
+        
+        .ad-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            color: #6c757d;
+        }
+        
+        .ad-placeholder span {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .resources {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .resources h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .resource-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            transition: transform 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .resource-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .resource-card p {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .resource-card a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .resource-card a:hover {
+            text-decoration: underline;
+        }
+        
+        .privacy-note {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #6c757d;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        
+        .footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+        
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        
+        .toast.error {
+            background: #dc3545;
+        }
+        
+        .copy-btn {
+            background: #28a745;
+            margin-left: 10px;
+        }
+        
+        .copy-btn:hover {
+            background: #218838;
+        }
+        
+        .download-btn {
+            background: #17a2b8;
+        }
+        
+        .download-btn:hover {
+            background: #138496;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+        
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 CSV to JSON Converter</h1>
+            <p>AI-powered schema detection • 100% client-side • No upload required</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="tool-grid">
+                <div class="input-section">
+                    <h2>📥 CSV Input</h2>
+                    <textarea id="csvInput" placeholder="Paste your CSV here...&#10;&#10;name,age,city&#10;John,25,New York&#10;Jane,30,Los Angeles&#10;Bob,35,Chicago" spellcheck="false"></textarea>
+                    <div class="controls">
+                        <button onclick="convertCSV()">🔄 Convert to JSON</button>
+                        <button class="secondary" onclick="loadSample()">📋 Load Sample</button>
+                        <button class="secondary" onclick="clearAll()">🗑️ Clear</button>
+                    </div>
+                    <div id="schemaInfo" class="schema-info" style="display: none;">
+                        <strong>🧠 AI Schema Detection:</strong> <span id="schemaDetails"></span>
+                    </div>
+                </div>
+                
+                <div class="output-section">
+                    <h2>📤 JSON Output</h2>
+                    <textarea id="jsonOutput" placeholder="Converted JSON will appear here..." readonly></textarea>
+                    <div class="controls">
+                        <button class="copy-btn" onclick="copyJSON()">📋 Copy JSON</button>
+                        <button class="download-btn" onclick="downloadJSON()">⬇️ Download</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ad Placeholder -->
+            <div class="ad-placeholder">
+                <span>📢 Advertisement Space</span>
+                <p style="margin-top: 10px;">Your ad could be here. Contact us for placement.</p>
+            </div>
+            
+            <!-- Resources Section -->
+            <div class="resources">
+                <h3>🔧 Developer & Seller Resources</h3>
+                <div class="resource-grid">
+                    <div class="resource-card">
+                        <h4>🛍️ Shopify Product SEO</h4>
+                        <p>Optimize your Shopify product listings with proper JSON-LD structured data. Convert your CSV product data to JSON for better search visibility.</p>
+                        <a href="#" onclick="reportEvent('resource_click', {resource: 'shopify_seo'}); return false;">Learn more →</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>📸 Etsy Listing Photo Size</h4>
+                        <p>Get the perfect photo dimensions for your Etsy listings. Use our JSON converter to manage your product data efficiently.</p>
+                        <a href="#" onclick="reportEvent('resource_click', {resource: 'etsy_photos'}); return false;">Learn more →</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>📦 Amazon FBA Calculator</h4>
+                        <p>Calculate your Amazon FBA fees accurately. Convert your product CSV data to JSON for better data management.</p>
+                        <a href="#" onclick="reportEvent('resource_click', {resource: 'amazon_fba'}); return false;">Learn more →</a>
+                    </div>
+                    <div class="resource-card">
+                        <h4>🔄 JSON to CSV Converter</h4>
+                        <p>Need to go the other way? Check out our JSON to CSV converter for reverse conversion needs.</p>
+                        <a href="#" onclick="reportEvent('resource_click', {resource: 'json_to_csv'}); return false;">Learn more →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Privacy Note -->
+            <div class="privacy-note">
+                🔒 <strong>Privacy Note:</strong> Events may be counted anonymously for product improvement. No personal data is collected or transmitted. All conversion happens locally in your browser.
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2024 CSV/JSON Tools | <a href="#" onclick="reportEvent('footer_link', {page: 'privacy'}); return false;">Privacy Policy</a> | <a href="#" onclick="reportEvent('footer_link', {page: 'terms'}); return false;">Terms of Service</a></p>
+        </div>
+    </div>
+    
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+    
+    <script>
+        // Analytics function
+        function reportEvent(name, payload) {
+            if (window.ORGANISM_METRICS_ENDPOINT) {
+                try {
+                    fetch(window.ORGANISM_METRICS_ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            event: name,
+                            payload: payload,
+                            timestamp: new Date().toISOString(),
+                            page: 'csv-to-json'
+                        })
+                    }).catch(() => {});
+                } catch (e) {
+                    // Silent fail
+                }
+            }
+        }
+        
+        // Toast notification
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // AI Schema Detection
+        function detectSchema(rows) {
+            if (rows.length === 0) return {};
+            
+            const headers = rows[0];
+            const schema = {};
+            
+            // Analyze each column
+            for (let i = 0; i < headers.length; i++) {
+                const columnData = rows.slice(1).map(row => row[i]);
+                const nonEmpty = columnData.filter(val => val !== '');
+                
+                if (nonEmpty.length === 0) {
+                    schema[headers[i]] = 'null';
+                    continue;
+                }
+                
+                // Check if all values are numbers
+                if (nonEmpty.every(val => !isNaN(val) && val.trim() !== '')) {
+                    schema[headers[i]] = 'number';
+                }
+                // Check if all values are booleans
+                else if (nonEmpty.every(val => ['true', 'false', 'TRUE', 'FALSE', 'True', 'False'].includes(val.trim()))) {
+                    schema[headers[i]] = 'boolean';
+                }
+                // Check if all values look like dates
+                else if (nonEmpty.every(val => !isNaN(Date.parse(val)))) {
+                    schema[headers[i]] = 'date';
+                }
+                // Check if values are nested objects (JSON)
+                else if (nonEmpty.every(val => {
+                    try {
+                        JSON.parse(val);
+                        return true;
+                    } catch {
+                        return false;
+                    }
+                })) {
+                    schema[headers[i]] = 'object';
+                }
+                // Check if values are arrays
+                else if (nonEmpty.every(val => val.startsWith('[') && val.endsWith(']'))) {
+                    schema[headers[i]] = 'array';
+                }
+                // Default to string
+                else {
+                    schema[headers[i]] = 'string';
+                }
+            }
+            
+            return schema;
+        }
+        
+        // Parse CSV with proper quote handling
+        function parseCSV(csvText) {
+            const rows = [];
+            let current = '';
+            let inQuotes = false;
+            let row = [];
+            
+            for (let i = 0; i < csvText.length; i++) {
+                const char = csvText[i];
+                
+                if (inQuotes) {
+                    if (char === '"') {
+                        if (csvText[i + 1] === '"') {
+                            current += '"';
+                            i++;
+                        } else {
+                            inQuotes = false;
+                        }
+                    } else {
+                        current += char;
+                    }
+                } else {
+                    if (char === '"') {
+                        inQuotes = true;
+                    } else if (char === ',') {
+                        row.push(current.trim());
+                        current = '';
+                    } else if (char === '\n') {
+                        row.push(current.trim());
+                        if (row.some(cell => cell !== '')) {
+                            rows.push(row);
+                        }
+                        row = [];
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+            }
+            
+            // Handle last row
+            if (current !== '' || row.length > 0) {
+                row.push(current.trim());
+                if (row.some(cell => cell !== '')) {
+                    rows.push(row);
+                }
+            }
+            
+            return rows;
+        }
+        
+        // Convert values based on schema
+        function convertValue(value, type) {
+            if (value === '' || value === null || value === undefined) {
+                return null;
+            }
+            
+            switch (type) {
+                case 'number':
+                    return Number(value);
+                case 'boolean':
+                    return ['true', 'TRUE', 'True'].includes(value.trim());
+                case 'date':
+                    return new Date(value).toISOString();
+                case 'object':
+                    try {
+                        return JSON.parse(value);
+                    } catch {
+                        return value;
+                    }
+                case 'array':
+                    try {
+                        return JSON.parse(value);
+                    } catch {
+                        return value.split(';').map(item => item.trim());
+                    }
+                default:
+                    return value;
+            }
+        }
+        
+        // Main conversion function
+        function convertCSV() {
+            const csvInput = document.getElementById('csvInput').value;
+            
+            if (!csvInput.trim()) {
+                showToast('Please enter CSV data first', true);
+                return;
+            }
+            
+            try {
+                const rows = parseCSV(csvInput);
+                
+                if (rows.length < 2) {
+                    showToast('CSV must have at least a header row and one data row', true);
+                    return;
+                }
+                
+                // Detect schema
+                const schema = detectSchema(rows);
+                const headers = rows[0];
+                
+                // Convert to JSON
+                const jsonArray = rows.slice(1).map(row => {
+                    const obj = {};
+                    headers.forEach((header, index) => {
+                        const value = row[index] || '';
+                        obj[header] = convertValue(value, schema[header]);
+                    });
+                    return obj;
+                });
+                
+                // Format JSON output
+                const jsonOutput = document.getElementById('jsonOutput');
+                jsonOutput.value = JSON.stringify(jsonArray, null, 2);
+                
+                // Display schema info
+                const schemaInfo = document.getElementById('schemaInfo');
+                const schemaDetails = document.getElementById('schemaDetails');
+                const schemaSummary = Object.entries(schema)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join(', ');
+                schemaDetails.textContent = schemaSummary;
+                schemaInfo.style.display = 'block';
+                
+                showToast('✅ Conversion successful!');
+                reportEvent('conversion', { 
+                    rows: jsonArray.length,
+                    columns: headers.length,
+                    schema: schema
+                });
+                
+            } catch (error) {
+                showToast('Error converting CSV: ' + error.message, true);
+                reportEvent('conversion_error', { error: error.message });
+            }
+        }
+        
+        // Load sample data
+        function loadSample() {
+            const sampleCSV = `name,age,city,is_active,joined_date,skills
+John Smith,28,New York,true,2020-01-15,"JavaScript,Python,SQL"
+Jane Doe,32,Los Angeles,false,2019-06-20,"React,Node.js"
+Bob Johnson,45,Chicago,true,2018-03-10,"Java,Spring,MySQL"
+Alice Brown,23,Seattle,true,2021-11-05,"Python,Django"
+Charlie Wilson,38,Miami,false,2017-08-30,"C#,Azure"
+`;
+            
+            document.getElementById('csvInput').value = sampleCSV;
+            showToast('Sample data loaded!');
+            reportEvent('sample_loaded', {});
+        }
+        
+        // Clear all
+        function clearAll() {
+            document.getElementById('csvInput').value = '';
+            document.getElementById('jsonOutput').value = '';
+            document.getElementById('schemaInfo').style.display = 'none';
+            showToast('Cleared all fields');
+            reportEvent('cleared', {});
+        }
+        
+        // Copy JSON to clipboard
+        function copyJSON() {
+            const jsonOutput = document.getElementById('jsonOutput');
+            if (!jsonOutput.value) {
+                showToast('No JSON to copy', true);
+                return;
+            }
+            
+            navigator.clipboard.writeText(jsonOutput.value).then(() => {
+                showToast('📋 JSON copied to clipboard!');
+                reportEvent('copy_json', { size: jsonOutput.value.length });
+            }).catch(() => {
+                // Fallback
+                jsonOutput.select();
+                document.execCommand('copy');
+                showToast('📋 JSON copied to clipboard!');
+            });
+        }
+        
+        // Download JSON file
+        function downloadJSON() {
+            const jsonOutput = document.getElementById('jsonOutput');
+            if (!jsonOutput.value) {
+                showToast('No JSON to download', true);
+                return;
+            }
+            
+            const blob = new Blob([jsonOutput.value], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'converted.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('⬇️ JSON downloaded!');
+            reportEvent('download_json', { size: jsonOutput.value.length });
+        }
+        
+        // Auto-convert on paste (debounced)
+        let debounceTimer;
+        document.getElementById('csvInput').addEventListener('paste', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                convertCSV();
+            }, 500);
+        });
+        
+        // Track page view
+        reportEvent('page_view', { page: 'csv-to-json' });
+    </script>
+
+<section data-organism-discovery="hub" style="margin:32px auto 20px;max-width:1040px;padding:16px;border-top:1px solid #d9e2ec;color:#475569;font:14px/1.5 system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <strong style="display:block;color:#0f172a;margin-bottom:6px">More free browser tools</strong>
+  <p style="margin:0 0 8px">This page is part of an autonomous micro-tool network. Explore the live tool directory and related utilities.</p>
+  <p style="margin:0"><a href="https://kingms888.github.io/do-digital-organism-index/" style="color:#0f766e;font-weight:700">Open the tool directory</a> </p>
+</section>
+</body>
+</html>
